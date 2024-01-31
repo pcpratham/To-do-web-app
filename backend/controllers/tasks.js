@@ -1,5 +1,6 @@
 const Task = require("../models/task");
 
+
 const createTask = async(req,res)=>{
     const userId = req.userId;
     const{title,description} = req.body;
@@ -25,6 +26,27 @@ const createTask = async(req,res)=>{
 
 }
 
+const getToDo = async(req,res)=>{
+    const userId = req.userId;
+    const tasks = await Task.find({user:userId});
+    return res.status(200).json({
+        msg:'All tasks fetched successfully',
+        data:tasks
+    });
+}
+
+const updateToDo = async(req,res) => {
+    const userId = req.userId;
+    const {id} = req.body;
+    const updateTask = await Task.findByIdAndUpdate({_id:id},{completed:true},{new:true});
+    return res.status(200).json({
+        msg:'Goal updated succesfully',
+        data:updateTask
+    });
+}
+
 module.exports = {
-    createTask
+    createTask,
+    getToDo,
+    updateToDo
 }
