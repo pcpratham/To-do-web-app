@@ -39,9 +39,11 @@ const updateToDo = async(req,res) => {
     const userId = req.userId;
     const {id} = req.body;
     const updateTask = await Task.findByIdAndUpdate({_id:id},{completed:true},{new:true});
+    const removeTask = await Task.findByIdAndDelete({_id:id});
     return res.status(200).json({
         msg:'Goal updated succesfully',
-        data:updateTask
+        data:updateTask,
+        removed:removeTask
     });
 }
 
