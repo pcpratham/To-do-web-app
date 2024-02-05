@@ -1,9 +1,10 @@
 import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useAuth } from '../contexts/AuthContext';
 
 const Login = () => {
+    const {login} = useAuth();
     const api = process.env.REACT_APP_API_URL;
     const [formData,setFormData] = useState({
         email:"",
@@ -21,40 +22,41 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    function submitHandler(event){
+    async function submitHandler(event){
       event.preventDefault();
-      try{
+      await login(formData);
+    //   try{
 
-          fetch(`${api}`+"/api/v1/login",{
-              method:"POST",
-              headers:{
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(formData)
-          })
-          .then(response=>response.json())
-          .then(data=>{
-              // console.log("success in Login  ",data);
+    //       fetch(`${api}`+"/api/v1/login",{
+    //           method:"POST",
+    //           headers:{
+    //               'Content-Type': 'application/json',
+    //           },
+    //           body: JSON.stringify(formData)
+    //       })
+    //       .then(response=>response.json())
+    //       .then(data=>{
+    //           // console.log("success in Login  ",data);
 
-              if(data.success){
-                const token = data.token;
-                 localStorage.setItem('token',token);
-                 navigate('/task')
-              }
-              else{
-                  alert("Login failed try again!!");
-              }
+    //           if(data.success){
+    //             const token = data.token;
+    //              localStorage.setItem('token',token);
+    //              navigate('/task')
+    //           }
+    //           else{
+    //               alert("Login failed try again!!");
+    //           }
               
-          })
-          .catch((err)=>{
-              console.log("error in calling Login api");
-              console.log(err);
-          })
-      }
-      catch(err){
-          console.log("Error while Logging the User!!");
-          console.log(err.message);
-      }
+    //       })
+    //       .catch((err)=>{
+    //           console.log("error in calling Login api");
+    //           console.log(err);
+    //       })
+    //   }
+    //   catch(err){
+    //       console.log("Error while Logging the User!!");
+    //       console.log(err.message);
+    //   }
     }
   return (
     <div className='flex justify-center my-auto items-center h-[600px] transate-y-52 '>

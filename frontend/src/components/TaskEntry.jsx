@@ -121,7 +121,7 @@ const TaskEntry = () => {
             <div className='flex flex-col items-center justify-center gap-4'>
                 <h1 className='text-xl font-bold text-pink-700'> Here is the list of all your tasks   </h1>
                 {
-                    userTasks.map((t) => {
+                    userTasks?.map((t) => {
                         return (
                             <div key={t._id} className='flex items-center justify-evenly w-[300px] px-4 py-2 gap-4 border-2 border-gray-400 rounded-lg'>
                                 <div className='w-[80%]'>

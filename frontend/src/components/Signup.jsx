@@ -1,10 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-
+import { useAuth } from '../contexts/AuthContext';
 
 const Signup = () => {
     const api = process.env.REACT_APP_API_URL;
+    const {signup} = useAuth();
     const [formData,setFormData] = useState({
         name:"",
         email:"",
@@ -22,37 +23,39 @@ const Signup = () => {
 
     const navigate = useNavigate()
 
-    function submitHandler(event){
+    async function submitHandler(event){
         event.preventDefault();
-        try{
+        await signup(formData);
+        
+        // try{
 
-            fetch(`${api}`+"/api/v1/register",{
-                method:"POST",
-                headers:{
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response=>response.json())
-            .then(data=>{
-                // console.log("success in register ",data);
-                if(data.success){
-                    navigate("/task")
-                }
-                else{
-                    alert("Please use unique email!!");
-                }
+        //     fetch(`${api}`+"/api/v1/register",{
+        //         method:"POST",
+        //         headers:{
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify(formData)
+        //     })
+        //     .then(response=>response.json())
+        //     .then(data=>{
+        //         // console.log("success in register ",data);
+        //         if(data.success){
+        //             navigate("/task")
+        //         }
+        //         else{
+        //             alert("Please use unique email!!");
+        //         }
                 
-            })
-            .catch((err)=>{
-                console.log("error in calling register api");
-                console.log(err);
-            })
-        }
-        catch(err){
-            console.log("Error while registering the User!!");
-            console.log(err.message);
-        }
+        //     })
+        //     .catch((err)=>{
+        //         console.log("error in calling register api");
+        //         console.log(err);
+        //     })
+        // }
+        // catch(err){
+        //     console.log("Error while registering the User!!");
+        //     console.log(err.message);
+        // }
     }
 
   return (
