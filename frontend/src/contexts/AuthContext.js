@@ -51,7 +51,7 @@ export const AuthProvider = ({children}) => {
 
     const signup = (formData) => {
         try{
-
+            setLoading(true);
             fetch(`${api}`+"/api/v1/register",{
                 method:"POST",
                 headers:{
@@ -63,6 +63,7 @@ export const AuthProvider = ({children}) => {
             .then(data=>{
                 // console.log("success in register ",data);
                 if(data.success){
+                    setLoading(false);
                     navigate("/login")
                     setIsLoggedIn(false);
                 }

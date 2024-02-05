@@ -62,7 +62,7 @@ const Login = () => {
         <div className='flex justify-center my-auto items-center h-[600px] transate-y-52 '>
 
             {
-                loading ? (<div>Loading </div>) : (<div className='flex flex-col gap-8 border shadow-lg p-6 rounded-lg border-gray-600'>
+                loading ? (<div className='spinner'></div>) : (<div className='flex flex-col gap-8 border shadow-lg p-6 rounded-lg border-gray-600'>
                     <h2 className='text-red-600 font-bold text-2xl text-center'>Login Form</h2>
                     <form onSubmit={submitHandler} className='flex flex-col items-center justify-center gap-8'>
                         <input type="text" placeholder='Enter Your Email' name="email" value={formData.email} onChange={changeHandler} className='border border-black text-center rounded-md w-[250px] h-8 p-2' />
