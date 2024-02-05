@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Task from "./components/Task";
 import { AuthProvider } from "./contexts/AuthContext";
 import Home from "./components/Home";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
           <Route path="/signup" element={<Signup/>} />
           <Route path="/task" element={<Task/>} />
         </Routes>
+
+
         
       </AuthProvider>
 
