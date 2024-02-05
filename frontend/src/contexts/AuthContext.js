@@ -60,8 +60,8 @@ export const AuthProvider = ({children}) => {
             .then(data=>{
                 // console.log("success in register ",data);
                 if(data.success){
-                    navigate("/task")
-                    setIsLoggedIn(true);
+                    navigate("/login")
+                    setIsLoggedIn(false);
                 }
                 else{
                     alert("Please use unique email!!");
