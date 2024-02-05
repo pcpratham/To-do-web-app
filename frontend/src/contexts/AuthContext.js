@@ -7,12 +7,14 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
     const [isLoggedIn,setIsLoggedIn] = useState(false);
+    const [loading,setLoading] = useState(false);
     const navigate = useNavigate();
 
     const api = process.env.REACT_APP_API_URL;
 
     const login = (formData) => {
         try{
+            setLoading(true);
             fetch(`${api}`+"/api/v1/login",{
                 method:"POST",
                 headers:{
@@ -28,6 +30,7 @@ export const AuthProvider = ({children}) => {
                   const token = data.token;
                    localStorage.setItem('token',token);
                    setIsLoggedIn(true);
+                   setLoading(false);
                    navigate('/task')
                 }
                 else{
@@ -86,7 +89,7 @@ export const AuthProvider = ({children}) => {
     }
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, login, signup,logout }}>
+        <AuthContext.Provider value={{ isLoggedIn, loading,setLoading, login, signup,logout }}>
           {children}
         </AuthContext.Provider>
     );
